@@ -1,0 +1,43 @@
+.auth-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .error-message {
+    color: #f44336;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  button {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+
+  .guest-section {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+}

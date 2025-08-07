@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
-  selector: 'app-root',
+  selector: 'cv-root',
   imports: [RouterOutlet, ButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
