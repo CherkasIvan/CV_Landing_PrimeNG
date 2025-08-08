@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
 import { FirebaseService } from '../../services/firebase/firebase.service';
+import { IAuthState } from '../../models/auth-state.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class AuthGuard implements CanActivate {
 
   public canActivate(): Observable<boolean> {
     return this.firebaseService.authState$.pipe(
-      map((state) => {
+      map((state: IAuthState) => {
         if (state.isAuthenticated) {
           return true;
         }
