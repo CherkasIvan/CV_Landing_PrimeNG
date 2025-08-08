@@ -1,0 +1,10 @@
+<div class="card flex justify-center">
+  <p-drawer
+    [visible]="isNavBarVisible()"
+    (visibleChange)="isNavBarVisible.set($event)"
+    header="Navigation menu"
+    position="left"
+  >
+    <p-panelmenu [model]="items" class="w-full md:w-80" />
+  </p-drawer>
+</div>

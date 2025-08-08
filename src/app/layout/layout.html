@@ -1,1 +1,17 @@
-<p>layout works!</p>
+<div class="layout-container">
+  <p-toast position="top-right"></p-toast>
+
+  <cv-nav-bar
+    [(isNavBarVisible)]="isNavVisible"
+    (toastEvent)="showToast($event)"
+  ></cv-nav-bar>
+
+  <button
+    pButton
+    (click)="isNavVisible.set(true)"
+    icon="pi pi-bars"
+    class="p-button-rounded p-button-text menu-toggle"
+  ></button>
+
+  <router-outlet></router-outlet>
+</div>

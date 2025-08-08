@@ -1,11 +1,70 @@
-/* Основные стили PrimeNG через конфиг */
-/* Дополнительные стили PrimeNG */
-@import "primeng/resources/primeng.min.css";
-@import "primeicons/primeicons.css";
+// Основные глобальные стили
+html,
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; // Блокируем горизонтальный скролл
+}
 
-/* Ваши кастомные стили */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
+  line-height: 1.6;
+  transition: all 0.3s ease;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  // Основной контейнер для контента
+  .container {
+    max-width: 100vw; // Гарантируем, что не выйдет за пределы экрана
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+    flex: 1;
+  }
+
+  // Адаптивные изображения
+  img,
+  video,
+  iframe,
+  canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+// Глобальный класс для адаптивных гридов
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  width: 100%;
+}
+
+// Дополнительные гарантии против горизонтального скролла
+body.prevent-horizontal-scroll {
+  overflow-x: hidden;
+}
+
+// Фикс для PrimeNG и других библиотек
+.p-component,
+.p-element {
+  max-width: 100% !important;
 }

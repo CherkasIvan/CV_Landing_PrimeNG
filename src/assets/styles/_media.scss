@@ -1,0 +1,94 @@
+// Убираем горизонтальный скролл для всех устройств
+@media (max-width: 9999px) {
+  html,
+  body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}
+
+// 1. Мобильные устройства (портретный режим)
+@media (max-width: 576px) {
+  body {
+    font-size: 14px;
+    padding: 0.5rem;
+
+    .container {
+      padding: 0 10px;
+    }
+  }
+}
+
+// 2. Планшеты и мобильные (альбомный режим)
+@media (min-width: 577px) and (max-width: 768px) {
+  body {
+    font-size: 15px;
+    padding: 0.75rem;
+  }
+}
+
+// 3. Небольшие ноутбуки и планшеты (альбомный режим)
+@media (min-width: 769px) and (max-width: 992px) {
+  body {
+    font-size: 16px;
+    padding: 1rem;
+  }
+}
+
+// 4. Стандартные десктопы
+@media (min-width: 993px) and (max-width: 1200px) {
+  body {
+    font-size: 17px;
+    padding: 1.25rem;
+  }
+}
+
+// 5. Большие экраны
+@media (min-width: 1201px) {
+  body {
+    font-size: 18px;
+    padding: 1.5rem;
+  }
+}
+
+// 6. Высокопиксельные дисплеи (Retina)
+@media only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (min-resolution: 192dpi) {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+// 7. Печать
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+    padding: 0;
+    margin: 0;
+    max-width: 100% !important;
+  }
+}
+
+// 8. Темная тема
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #f0f0f0;
+  }
+}
+
+// 9. Портретная ориентация
+@media (orientation: portrait) {
+  body {
+    max-height: 100vh;
+  }
+}
+
+// 10. Альбомная ориентация
+@media (orientation: landscape) {
+  body {
+    max-width: 100vw;
+  }
+}

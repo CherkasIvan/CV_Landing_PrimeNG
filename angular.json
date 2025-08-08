@@ -17,6 +17,11 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
+            "externalDependencies": [
+              "primeng/resources/themes/lara-light-blue/theme.css",
+              "primeng/resources/primeng.css",
+              "primeicons/primeicons.css"
+            ],
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
@@ -28,12 +33,7 @@
                 "output": "assets"
               }
             ],
-            "styles": [
-              "src/styles.scss",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.css",
-              "node_modules/primeicons/primeicons.css"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": []
           },
           "configurations": {
