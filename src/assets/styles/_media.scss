@@ -11,10 +11,8 @@
 @media (max-width: 576px) {
   body {
     font-size: 14px;
-    padding: 0.5rem;
 
     .container {
-      padding: 0 10px;
     }
   }
 }
@@ -23,7 +21,6 @@
 @media (min-width: 577px) and (max-width: 768px) {
   body {
     font-size: 15px;
-    padding: 0.75rem;
   }
 }
 
@@ -31,7 +28,6 @@
 @media (min-width: 769px) and (max-width: 992px) {
   body {
     font-size: 16px;
-    padding: 1rem;
   }
 }
 
@@ -39,7 +35,6 @@
 @media (min-width: 993px) and (max-width: 1200px) {
   body {
     font-size: 17px;
-    padding: 1.25rem;
   }
 }
 
@@ -47,7 +42,6 @@
 @media (min-width: 1201px) {
   body {
     font-size: 18px;
-    padding: 1.5rem;
   }
 }
 
@@ -65,7 +59,6 @@
   body {
     background: white !important;
     color: black !important;
-    padding: 0;
     margin: 0;
     max-width: 100% !important;
   }

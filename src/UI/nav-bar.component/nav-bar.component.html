@@ -1,10 +1,21 @@
-<div class="card flex justify-center">
-  <p-drawer
-    [visible]="isNavBarVisible()"
-    (visibleChange)="isNavBarVisible.set($event)"
-    header="Navigation menu"
-    position="left"
-  >
-    <p-panelmenu [model]="items" class="w-full md:w-80" />
-  </p-drawer>
-</div>
+<p-card class="card flex justify-center">
+  <div class="container">
+    <p-toggleswitch [ngModel]="checked" (ngModelChange)="onThemeChange($event)">
+      <ng-template #handle let-checked="checked">
+        <i
+          [ngClass]="['!text-xs', 'pi', checked ? 'pi-check' : 'pi-times']"
+        ></i>
+      </ng-template>
+    </p-toggleswitch>
+    <p-button
+      (click)="isNavVisible.set(!isNavVisible())"
+      badgeSeverity="info"
+      [raised]="true"
+      size="large"
+      severity="contrast"
+    >
+      <i [class]="isNavVisible() ? 'pi pi-times mr-2' : 'pi pi-bars mr-2'"></i>
+      Navigation bar
+    </p-button>
+  </div>
+</p-card>

@@ -10,39 +10,34 @@ import { WorkPage } from './pages/work/work.page';
 export const LAYOUT_ROUTES: Routes = [
   {
     path: '',
-    component: Layout,
     children: [
       {
         path: ERoute.MAIN,
         loadComponent: () =>
-          import('./pages/main/main.page').then((c) => c.MainPage),
+          import('./pages/main/main.page').then((m) => m.MainPage),
       },
       {
         path: ERoute.PROJECTS,
         loadComponent: () =>
-          import('./pages/projects/projects.page').then((c) => c.ProjectsPage),
+          import('./pages/projects/projects.page').then((m) => m.ProjectsPage),
       },
       {
         path: ERoute.EXPERIENCE,
         loadComponent: () =>
           import('./pages/experience/experience.page').then(
-            (c) => c.ExperiencePage
+            (m) => m.ExperiencePage
           ),
         children: [
-          {
-            path: '',
-            children: [
-              { path: 'education', component: EducationPage },
-              { path: 'work', component: WorkPage },
-            ],
-          },
+          { path: 'education', component: EducationPage },
+          { path: 'work', component: WorkPage },
+          { path: '', redirectTo: 'education', pathMatch: 'full' },
         ],
       },
       {
         path: ERoute.TECHNOLOGIES,
         loadComponent: () =>
           import('./pages/technologies/technologies.page').then(
-            (c) => c.TechnologiesPage
+            (m) => m.TechnologiesPage
           ),
         children: [
           {
@@ -50,19 +45,14 @@ export const LAYOUT_ROUTES: Routes = [
             children: [
               { path: 'frontend', component: FrontendPage },
               { path: 'backend', component: BackendPage },
+              { path: '', redirectTo: 'frontend', pathMatch: 'full' },
             ],
           },
-          {
-            path: 'soft',
-            component: SoftPage,
-          },
+          { path: 'soft', component: SoftPage },
+          { path: '', redirectTo: 'hard', pathMatch: 'full' },
         ],
       },
-      {
-        path: '',
-        redirectTo: ERoute.MAIN,
-        pathMatch: 'full',
-      },
+      { path: '', redirectTo: ERoute.MAIN, pathMatch: 'full' },
     ],
   },
 ];

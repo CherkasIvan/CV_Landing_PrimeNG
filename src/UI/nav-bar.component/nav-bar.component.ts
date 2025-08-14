@@ -1,132 +1,72 @@
-import { Component, inject, model, output } from '@angular/core';
+import { Component, inject, model, output, signal } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DrawerModule } from 'primeng/drawer';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { ERoute } from '../../utils/constants/route.enum';
+import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { ToggleSwitch } from 'primeng/toggleswitch';
+import { FormsModule } from '@angular/forms';
+import { ThemeService } from '../../core/services/theme.service/theme.service';
+import { createMenuItems } from '../../utils/constants/menu-items.const';
 
 @Component({
   selector: 'cv-nav-bar',
   standalone: true,
-  imports: [DrawerModule, ButtonModule, PanelMenuModule],
+  imports: [
+    DrawerModule,
+    ButtonModule,
+    PanelMenuModule,
+    FormsModule,
+    ToggleSwitch,
+    NgClass,
+    CardModule,
+  ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
 })
 export class NavBarComponent {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
-
+  private themeService = inject(ThemeService);
   public isNavBarVisible = model.required<boolean>();
+  public isNavVisible = signal(false);
+
   public toastEvent = output<{
     severity: string;
     summary: string;
     detail: string;
   }>();
+  public items: MenuItem[];
+  public checked = this.themeService.initTheme();
 
-  public items: MenuItem[] = [
-    {
-      label: 'Главная',
-      icon: 'pi pi-home',
-      command: () =>
-        this.navigateWithToast([ERoute.LAYOUT, ERoute.MAIN], 'Главная'),
-    },
-    {
-      label: 'Проекты',
-      icon: 'pi pi-folder',
-      command: () =>
-        this.navigateWithToast([ERoute.LAYOUT, ERoute.PROJECTS], 'Проекты'),
-    },
-    {
-      label: 'Опыт',
-      icon: 'pi pi-briefcase',
-      items: [
-        {
-          label: 'Обучение',
-          icon: 'pi pi-book',
-          command: () =>
-            this.navigateWithToast(
-              [ERoute.LAYOUT, ERoute.EXPERIENCE, 'education'],
-              'Обучение'
-            ),
-        },
-        {
-          label: 'Рабочий опыт',
-          icon: 'pi pi-building',
-          command: () =>
-            this.navigateWithToast(
-              [ERoute.LAYOUT, ERoute.EXPERIENCE, 'work'],
-              'Рабочий опыт'
-            ),
-        },
-      ],
-    },
-    {
-      label: 'Технологии',
-      icon: 'pi pi-code',
-      items: [
-        {
-          label: 'Hard Skills',
-          items: [
-            {
-              label: 'Frontend',
-              command: () =>
-                this.navigateWithToast(
-                  [ERoute.LAYOUT, ERoute.TECHNOLOGIES, 'hard', 'frontend'],
-                  'Frontend'
-                ),
-            },
-            {
-              label: 'Backend',
-              command: () =>
-                this.navigateWithToast(
-                  [ERoute.LAYOUT, ERoute.TECHNOLOGIES, 'hard', 'backend'],
-                  'Backend'
-                ),
-            },
-          ],
-        },
-        {
-          label: 'Soft Skills',
-          command: () =>
-            this.navigateWithToast(
-              [ERoute.LAYOUT, ERoute.TECHNOLOGIES, 'soft'],
-              'Soft Skills'
-            ),
-        },
-      ],
-    },
-    {
-      label: 'Выйти',
-      icon: 'pi pi-sign-out',
-      command: () => {
-        this.toastEvent.emit({
-          severity: 'info',
-          summary: 'Signed out',
-          detail: 'User logged out',
-        });
-        this.isNavBarVisible.set(false);
-      },
-    },
-  ];
+  onThemeChange(isDarkMode: boolean) {
+    this.themeService.setTheme(isDarkMode);
 
-  private navigateWithToast(route: string[], pageName: string): void {
-    const cleanRoute = route.filter((segment) => segment !== ERoute.LAYOUT);
+    this.toastEvent.emit({
+      severity: 'info',
+      summary: 'Theme changed',
+      detail: `Switched to ${isDarkMode ? 'dark' : 'light'} mode`,
+    });
+  }
 
+  private navigateWithToast(route: string[]): void {
     this.router
-      .navigate(cleanRoute, { relativeTo: this.route })
+      .navigate(route, { relativeTo: this.route.parent })
       .then((success) => {
         if (success) {
           this.toastEvent.emit({
             severity: 'success',
             summary: 'Навигация',
-            detail: `Вы перешли на страницу: ${pageName}`,
+            detail: `Успешный переход на ${route.join('/')}`,
           });
+          this.isNavBarVisible.set(false);
         } else {
           this.toastEvent.emit({
             severity: 'error',
             summary: 'Ошибка',
-            detail: `Не удалось перейти на страницу: ${pageName}`,
+            detail: 'Не удалось выполнить переход',
           });
         }
       })
@@ -135,11 +75,17 @@ export class NavBarComponent {
         this.toastEvent.emit({
           severity: 'error',
           summary: 'Ошибка навигации',
-          detail: `Произошла ошибка при переходе на страницу: ${pageName}`,
+          detail: 'Произошла ошибка при переходе',
         });
-      })
-      .finally(() => {
-        this.isNavBarVisible.set(false);
       });
+  }
+  public constructor() {
+    this.isNavVisible.set(true);
+
+    this.items = createMenuItems({
+      navigateWithToast: this.navigateWithToast.bind(this),
+      toastEvent: this.toastEvent,
+      isNavBarVisible: this.isNavBarVisible,
+    });
   }
 }

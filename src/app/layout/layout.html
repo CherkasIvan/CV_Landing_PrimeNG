@@ -1,17 +1,24 @@
-<div class="layout-container">
-  <p-toast position="top-right"></p-toast>
+<div class="flex flex-col min-h-screen w-full p-10 box-border">
+  <div class="layout-container">
+    <p-toast position="top-right"></p-toast>
 
-  <cv-nav-bar
-    [(isNavBarVisible)]="isNavVisible"
-    (toastEvent)="showToast($event)"
-  ></cv-nav-bar>
+    <cv-nav-bar
+      [isNavBarVisible]="isNavVisible()"
+      (isNavBarVisibleChange)="isNavVisible.set($event)"
+      (toastEvent)="showToast($event)"
+    ></cv-nav-bar>
 
-  <button
-    pButton
-    (click)="isNavVisible.set(true)"
-    icon="pi pi-bars"
-    class="p-button-rounded p-button-text menu-toggle"
-  ></button>
+    <button
+      pButton
+      (click)="isNavVisible.set(true)"
+      icon="pi pi-bars"
+      class="p-button-rounded p-button-text menu-toggle"
+    ></button>
 
-  <router-outlet></router-outlet>
+    <div class="h-full overflow-hidden">
+      <div class="content-wrapper h-full">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
 </div>

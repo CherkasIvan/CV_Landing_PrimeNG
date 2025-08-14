@@ -1,22 +1,23 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NavBarComponent } from '../../UI/nav-bar.component/nav-bar.component';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
+import { NavBarComponent } from '../../UI/nav-bar.component/nav-bar.component';
 @Component({
   selector: 'cv-layout',
   standalone: true,
-  imports: [RouterOutlet, NavBarComponent, ButtonModule, ToastModule],
+  imports: [RouterOutlet, ButtonModule, ToastModule, NavBarComponent],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
-  providers: [MessageService],
 })
 export class Layout {
-  isNavVisible = signal(false);
+  private messageService = inject(MessageService);
 
-  constructor(private messageService: MessageService) {}
+  checked: boolean = false;
+  blockedPanel: boolean = false;
+  public isNavVisible = signal(false);
 
   showToast(event: { severity: string; summary: string; detail: string }) {
     this.messageService.add({
