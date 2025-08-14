@@ -1,7 +1,5 @@
 import { MenuItem } from 'primeng/api';
 import { ERoute } from './route.enum';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 import { OutputEmitterRef } from '@angular/core';
 import { WritableSignal } from '@angular/core';
 

@@ -1,49 +1,71 @@
-import { Component, inject, model, output, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  model,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
 import { PanelMenuModule } from 'primeng/panelmenu';
 import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgClass } from '@angular/common';
-import { ToggleSwitch } from 'primeng/toggleswitch';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../core/services/theme.service/theme.service';
 import { createMenuItems } from '../../utils/constants/menu-items.const';
 
+/**
+ * Navigation bar component with theme toggle and drawer functionality
+ */
 @Component({
   selector: 'cv-nav-bar',
   standalone: true,
   imports: [
-    DrawerModule,
     ButtonModule,
     PanelMenuModule,
     FormsModule,
-    ToggleSwitch,
+    ToggleSwitchModule,
     NgClass,
     CardModule,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
 })
-export class NavBarComponent {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
-  private themeService = inject(ThemeService);
-  public isNavBarVisible = model.required<boolean>();
-  public isNavVisible = signal(false);
+export class NavBarComponent implements OnInit {
+  /** Router service for navigation */
+  private readonly router = inject(Router);
 
+  /** Activated route service */
+  private readonly route = inject(ActivatedRoute);
+
+  /** Theme service for managing application theme */
+  private readonly themeService = inject(ThemeService);
+
+  /** Controls visibility of the navigation bar */
+  public isNavBarVisible = model.required<boolean>();
+
+  /** Event emitter for toast notifications */
   public toastEvent = output<{
     severity: string;
     summary: string;
     detail: string;
   }>();
-  public items: MenuItem[];
+
+  /** Menu items for the navigation */
+  public items: MenuItem[] = [];
+
+  /** Current theme state */
   public checked = this.themeService.initTheme();
 
-  onThemeChange(isDarkMode: boolean) {
+  /**
+   * Handles theme change events
+   * @param isDarkMode - Boolean indicating if dark mode is enabled
+   */
+  public onThemeChange(isDarkMode: boolean): void {
     this.themeService.setTheme(isDarkMode);
-
     this.toastEvent.emit({
       severity: 'info',
       summary: 'Theme changed',
@@ -51,6 +73,10 @@ export class NavBarComponent {
     });
   }
 
+  /**
+   * Navigates to a route and shows toast notification
+   * @param route - Array of route segments
+   */
   private navigateWithToast(route: string[]): void {
     this.router
       .navigate(route, { relativeTo: this.route.parent })
@@ -58,15 +84,15 @@ export class NavBarComponent {
         if (success) {
           this.toastEvent.emit({
             severity: 'success',
-            summary: 'Навигация',
-            detail: `Успешный переход на ${route.join('/')}`,
+            summary: 'Navigation',
+            detail: `Successfully navigated to ${route.join('/')}`,
           });
           this.isNavBarVisible.set(false);
         } else {
           this.toastEvent.emit({
             severity: 'error',
-            summary: 'Ошибка',
-            detail: 'Не удалось выполнить переход',
+            summary: 'Error',
+            detail: 'Failed to navigate',
           });
         }
       })
@@ -74,14 +100,13 @@ export class NavBarComponent {
         console.error('Navigation error:', error);
         this.toastEvent.emit({
           severity: 'error',
-          summary: 'Ошибка навигации',
-          detail: 'Произошла ошибка при переходе',
+          summary: 'Navigation error',
+          detail: 'An error occurred during navigation',
         });
       });
   }
-  public constructor() {
-    this.isNavVisible.set(true);
 
+  public ngOnInit() {
     this.items = createMenuItems({
       navigateWithToast: this.navigateWithToast.bind(this),
       toastEvent: this.toastEvent,

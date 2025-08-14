@@ -8,13 +8,15 @@
       </ng-template>
     </p-toggleswitch>
     <p-button
-      (click)="isNavVisible.set(!isNavVisible())"
+      (click)="isNavBarVisible.set(!isNavBarVisible())"
       badgeSeverity="info"
       [raised]="true"
       size="large"
       severity="contrast"
     >
-      <i [class]="isNavVisible() ? 'pi pi-times mr-2' : 'pi pi-bars mr-2'"></i>
+      <i
+        [class]="isNavBarVisible() ? 'pi pi-times mr-2' : 'pi pi-bars mr-2'"
+      ></i>
       Navigation bar
     </p-button>
   </div>
