@@ -1,132 +1,98 @@
-import { Component, inject, model, output } from '@angular/core';
+import {
+  Component,
+  inject,
+  model,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { DrawerModule } from 'primeng/drawer';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { ERoute } from '../../utils/constants/route.enum';
+import { CardModule } from 'primeng/card';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgClass } from '@angular/common';
+import { ToggleSwitchModule } from 'primeng/toggleswitch';
+import { FormsModule } from '@angular/forms';
+import { ThemeService } from '../../core/services/theme.service/theme.service';
+import { createMenuItems } from '../../utils/constants/menu-items.const';
 
+/**
+ * Navigation bar component with theme toggle and drawer functionality
+ */
 @Component({
   selector: 'cv-nav-bar',
   standalone: true,
-  imports: [DrawerModule, ButtonModule, PanelMenuModule],
+  imports: [
+    ButtonModule,
+    PanelMenuModule,
+    FormsModule,
+    ToggleSwitchModule,
+    NgClass,
+    CardModule,
+  ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
 })
-export class NavBarComponent {
-  private router = inject(Router);
-  private route = inject(ActivatedRoute);
+export class NavBarComponent implements OnInit {
+  /** Router service for navigation */
+  private readonly router = inject(Router);
 
+  /** Activated route service */
+  private readonly route = inject(ActivatedRoute);
+
+  /** Theme service for managing application theme */
+  private readonly themeService = inject(ThemeService);
+
+  /** Controls visibility of the navigation bar */
   public isNavBarVisible = model.required<boolean>();
+
+  /** Event emitter for toast notifications */
   public toastEvent = output<{
     severity: string;
     summary: string;
     detail: string;
   }>();
 
-  public items: MenuItem[] = [
-    {
-      label: 'Главная',
-      icon: 'pi pi-home',
-      command: () =>
-        this.navigateWithToast([ERoute.LAYOUT, ERoute.MAIN], 'Главная'),
-    },
-    {
-      label: 'Проекты',
-      icon: 'pi pi-folder',
-      command: () =>
-        this.navigateWithToast([ERoute.LAYOUT, ERoute.PROJECTS], 'Проекты'),
-    },
-    {
-      label: 'Опыт',
-      icon: 'pi pi-briefcase',
-      items: [
-        {
-          label: 'Обучение',
-          icon: 'pi pi-book',
-          command: () =>
-            this.navigateWithToast(
-              [ERoute.LAYOUT, ERoute.EXPERIENCE, 'education'],
-              'Обучение'
-            ),
-        },
-        {
-          label: 'Рабочий опыт',
-          icon: 'pi pi-building',
-          command: () =>
-            this.navigateWithToast(
-              [ERoute.LAYOUT, ERoute.EXPERIENCE, 'work'],
-              'Рабочий опыт'
-            ),
-        },
-      ],
-    },
-    {
-      label: 'Технологии',
-      icon: 'pi pi-code',
-      items: [
-        {
-          label: 'Hard Skills',
-          items: [
-            {
-              label: 'Frontend',
-              command: () =>
-                this.navigateWithToast(
-                  [ERoute.LAYOUT, ERoute.TECHNOLOGIES, 'hard', 'frontend'],
-                  'Frontend'
-                ),
-            },
-            {
-              label: 'Backend',
-              command: () =>
-                this.navigateWithToast(
-                  [ERoute.LAYOUT, ERoute.TECHNOLOGIES, 'hard', 'backend'],
-                  'Backend'
-                ),
-            },
-          ],
-        },
-        {
-          label: 'Soft Skills',
-          command: () =>
-            this.navigateWithToast(
-              [ERoute.LAYOUT, ERoute.TECHNOLOGIES, 'soft'],
-              'Soft Skills'
-            ),
-        },
-      ],
-    },
-    {
-      label: 'Выйти',
-      icon: 'pi pi-sign-out',
-      command: () => {
-        this.toastEvent.emit({
-          severity: 'info',
-          summary: 'Signed out',
-          detail: 'User logged out',
-        });
-        this.isNavBarVisible.set(false);
-      },
-    },
-  ];
+  /** Menu items for the navigation */
+  public items: MenuItem[] = [];
 
-  private navigateWithToast(route: string[], pageName: string): void {
-    const cleanRoute = route.filter((segment) => segment !== ERoute.LAYOUT);
+  /** Current theme state */
+  public checked = this.themeService.initTheme();
 
+  /**
+   * Handles theme change events
+   * @param isDarkMode - Boolean indicating if dark mode is enabled
+   */
+  public onThemeChange(isDarkMode: boolean): void {
+    this.themeService.setTheme(isDarkMode);
+    this.toastEvent.emit({
+      severity: 'info',
+      summary: 'Theme changed',
+      detail: `Switched to ${isDarkMode ? 'dark' : 'light'} mode`,
+    });
+  }
+
+  /**
+   * Navigates to a route and shows toast notification
+   * @param route - Array of route segments
+   */
+  private navigateWithToast(route: string[]): void {
     this.router
-      .navigate(cleanRoute, { relativeTo: this.route })
+      .navigate(route, { relativeTo: this.route.parent })
       .then((success) => {
         if (success) {
           this.toastEvent.emit({
             severity: 'success',
-            summary: 'Навигация',
-            detail: `Вы перешли на страницу: ${pageName}`,
+            summary: 'Navigation',
+            detail: `Successfully navigated to ${route.join('/')}`,
           });
+          this.isNavBarVisible.set(false);
         } else {
           this.toastEvent.emit({
             severity: 'error',
-            summary: 'Ошибка',
-            detail: `Не удалось перейти на страницу: ${pageName}`,
+            summary: 'Error',
+            detail: 'Failed to navigate',
           });
         }
       })
@@ -134,12 +100,17 @@ export class NavBarComponent {
         console.error('Navigation error:', error);
         this.toastEvent.emit({
           severity: 'error',
-          summary: 'Ошибка навигации',
-          detail: `Произошла ошибка при переходе на страницу: ${pageName}`,
+          summary: 'Navigation error',
+          detail: 'An error occurred during navigation',
         });
-      })
-      .finally(() => {
-        this.isNavBarVisible.set(false);
       });
+  }
+
+  public ngOnInit() {
+    this.items = createMenuItems({
+      navigateWithToast: this.navigateWithToast.bind(this),
+      toastEvent: this.toastEvent,
+      isNavBarVisible: this.isNavBarVisible,
+    });
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable, map } from 'rxjs';
-import { FirebaseService } from '../../services/firebase/firebase.service';
+import { FirebaseService } from '../../services/firebase.service/firebase.service';
 import { IAuthState } from '../../models/auth-state.interface';
 
 @Injectable({

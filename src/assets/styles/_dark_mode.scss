@@ -1,0 +1,90 @@
+.dark-mode {
+  // Осветлённая цветовая палитра
+  --surface-a: #1a1a1a; // Более светлый основной фон
+  --surface-b: #252525; // Более светлый тёмный фон
+  --surface-c: #2e2e2e; // Осветлённые поверхности элементов
+  --surface-d: #383838; // Бордеры/разделители
+  --surface-e: #424242; // Более светлые карточки
+  --surface-f: #4a4a4a; // Ховер-состояния
+
+  // Цвета текста остаются контрастными
+  --text-color: #ffffff; // Основной текст (белый)
+  --text-color-secondary: #e0e0e0; // Вторичный текст
+
+  // Акцентные цвета
+  --primary-color: #64b5f6; // Яркий акцент для лучшей видимости
+  --primary-color-text: #121212; // Текст на акцентном фоне
+
+  // Дополнительные поверхности
+  --surface-ground: var(--surface-a);
+  --surface-card: #ffffff;
+  --surface-border: var(--surface-d);
+
+  background-color: var(--surface-a);
+  color: var(--text-color);
+
+  // Глобальные стили
+  .p-panel {
+    background-color: var(--surface-a);
+
+    .p-panel-content {
+      background-color: var(--surface-a);
+    }
+  }
+
+  // СТИЛИ ДЛЯ КАРТОЧЕК - БЕЛЫЙ ФОН И ОТСТУПЫ 20px
+  .p-card {
+    background-color: var(--surface-card) !important;
+    color: #333 !important; // Тёмный текст для контраста с белым фоном
+    border-color: var(--surface-border);
+    padding: 20px !important; // Отступы 20px со всех сторон
+    border-radius: 20px;
+    // Для всех текстовых элементов внутри карточки
+    * {
+      color: #333 !important; // Тёмный текст
+    }
+
+    // Для заголовков
+    .p-card-title {
+      color: #222 !important; // Ещё темнее для заголовков
+      font-weight: 600;
+    }
+  }
+
+  // Стили для переключателя меню
+  .menu-toggle {
+    background-color: var(--primary-color) !important;
+    color: var(--primary-color-text) !important;
+  }
+
+  // Дополнительные компоненты
+  .p-panelmenu {
+    .p-panelmenu-header-link {
+      background: var(--surface-c);
+      color: var(--text-color);
+      border-color: var(--surface-border);
+    }
+
+    .p-panelmenu-content {
+      background: var(--surface-b);
+      border-color: var(--surface-border);
+
+      .p-menuitem-link {
+        color: var(--text-color-secondary);
+
+        &:hover {
+          background: var(--surface-f);
+        }
+      }
+    }
+  }
+
+  .p-drawer-header {
+    background: #2e2e2e;
+    color: #e0e0e0;
+  }
+
+  .p-drawer-content {
+    background: #2e2e2e;
+  }
+}

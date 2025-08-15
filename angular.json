@@ -15,13 +15,10 @@
       "prefix": "cv",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "externalDependencies": [
-              "primeng/resources/themes/lara-light-blue/theme.css",
-              "primeng/resources/primeng.css",
-              "primeicons/primeicons.css"
-            ],
+            "outputPath": "dist/CV_Landing_PrimeNG",
+            "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
@@ -33,7 +30,10 @@
                 "output": "assets"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "node_modules/primeicons/primeicons.css",
+              "src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -61,7 +61,10 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "CV_Landing_PrimeNG:build"
+          },
           "configurations": {
             "production": {
               "buildTarget": "CV_Landing_PrimeNG:build:production"
@@ -73,14 +76,16 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "CV_Landing_PrimeNG:build"
+          }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",

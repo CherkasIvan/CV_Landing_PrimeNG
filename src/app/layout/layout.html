@@ -1,17 +1,49 @@
-<div class="layout-container">
-  <p-toast position="top-right"></p-toast>
+<div class="flex flex-col min-h-screen w-full p-10 box-border">
+  <div class="layout-container">
+    <p-toast position="top-right"></p-toast>
 
-  <cv-nav-bar
-    [(isNavBarVisible)]="isNavVisible"
-    (toastEvent)="showToast($event)"
-  ></cv-nav-bar>
+    <cv-nav-bar
+      [isNavBarVisible]="isDrawerVisible()"
+      (isNavBarVisibleChange)="onDrawerVisibleChange($event)"
+      (toastEvent)="showToast($event)"
+    ></cv-nav-bar>
 
-  <button
-    pButton
-    (click)="isNavVisible.set(true)"
-    icon="pi pi-bars"
-    class="p-button-rounded p-button-text menu-toggle"
-  ></button>
+    <!-- PrimeNG Drawer Component with Menu Items -->
+    <p-drawer
+      [visible]="isDrawerVisible()"
+      (visibleChange)="onDrawerVisibleChange($event)"
+      position="left"
+      [modal]="true"
+      [showCloseIcon]="true"
+      [dismissible]="true"
+      [style]="{width: '300px'}"
+    >
+      <ng-template pTemplate="header">
+        <h3>Navigation Menu</h3>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <!-- Navigation menu items - now properly bound -->
+        <p-panelMenu
+          [model]="navBarComponent.items"
+          [multiple]="false"
+          styleClass="w-full"
+        ></p-panelMenu>
+      </ng-template>
+    </p-drawer>
 
-  <router-outlet></router-outlet>
+    <!-- Toggle Button -->
+    <button
+      pButton
+      (click)="toggleDrawer()"
+      icon="pi pi-bars"
+      class="p-button-rounded p-button-text"
+    ></button>
+
+    <!-- Main Content -->
+    <div class="h-full overflow-hidden">
+      <div class="content-wrapper h-full">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
 </div>

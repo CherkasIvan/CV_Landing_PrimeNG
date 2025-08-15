@@ -9,6 +9,7 @@
         id="email"
         formControlName="email"
         placeholder="Введите email"
+        autocomplete="email"
         pInputText
       />
       @if (authForm.get('email')?.invalid && authForm.get('email')?.touched) {
@@ -29,7 +30,9 @@
         id="password"
         formControlName="password"
         placeholder="Введите пароль"
+        autocomplete="current-password"
         pInputText
+        class="ng-untouched ng-pristine ng-invalid p-component p-inputtext"
       />
       @if (authForm.get('password')?.invalid &&
       authForm.get('password')?.touched) {
