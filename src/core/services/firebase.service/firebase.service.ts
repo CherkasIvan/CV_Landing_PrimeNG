@@ -29,11 +29,22 @@ export class FirebaseService {
 
   private initAuthState(): void {
     authState(this.auth)
-      .pipe(map((user) => this.mapUserToState(user)))
+      .pipe(
+        map((user) => this.mapUserToState(user)),
+        tap((state) => {
+          if (state.isAuthenticated) {
+            localStorage.setItem('user', JSON.stringify(state));
+          } else {
+            localStorage.removeItem('user');
+          }
+        })
+      )
       .subscribe((state) => {
         this.authStateSubject.next(state);
         if (state.isAuthenticated) {
           this.router.navigate(['/layout']);
+        } else {
+          this.router.navigate(['/auth']);
         }
       });
   }

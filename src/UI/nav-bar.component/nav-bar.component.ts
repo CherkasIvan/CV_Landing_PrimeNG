@@ -16,6 +16,7 @@ import { ToggleSwitchModule } from 'primeng/toggleswitch';
 import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../core/services/theme.service/theme.service';
 import { createMenuItems } from '../../utils/constants/menu-items.const';
+import { FirebaseService } from '../../core/services/firebase.service/firebase.service';
 
 /**
  * Navigation bar component with theme toggle and drawer functionality
@@ -39,10 +40,12 @@ export class NavBarComponent implements OnInit {
   private readonly router = inject(Router);
 
   /** Activated route service */
+  private readonly firebaseService = inject(FirebaseService);
+
   private readonly route = inject(ActivatedRoute);
 
   /** Theme service for managing application theme */
-  private readonly themeService = inject(ThemeService);
+  public readonly themeService = inject(ThemeService);
 
   /** Controls visibility of the navigation bar */
   public isNavBarVisible = model.required<boolean>();
@@ -70,6 +73,18 @@ export class NavBarComponent implements OnInit {
       severity: 'info',
       summary: 'Theme changed',
       detail: `Switched to ${isDarkMode ? 'dark' : 'light'} mode`,
+    });
+  }
+
+  logout() {
+    this.firebaseService.signOut().subscribe({
+      next: () => {
+        localStorage.removeItem('user'); // Clear local storage
+        this.router.navigate(['/auth']); // Redirect to auth page
+      },
+      error: (err) => {
+        console.error('Logout failed:', err);
+      },
     });
   }
 

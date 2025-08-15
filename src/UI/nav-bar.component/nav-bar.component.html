@@ -1,23 +1,36 @@
-<p-card class="card flex justify-center">
-  <div class="container">
-    <p-toggleswitch [ngModel]="checked" (ngModelChange)="onThemeChange($event)">
-      <ng-template #handle let-checked="checked">
-        <i
-          [ngClass]="['!text-xs', 'pi', checked ? 'pi-check' : 'pi-times']"
-        ></i>
-      </ng-template>
-    </p-toggleswitch>
+<p-card class="card flex justify-between items-center p-4">
+  <div class="flex gap-x-10 items-center">
     <p-button
       (click)="isNavBarVisible.set(!isNavBarVisible())"
       badgeSeverity="info"
       [raised]="true"
       size="large"
       severity="contrast"
+      class="flex items-center"
     >
       <i
         [class]="isNavBarVisible() ? 'pi pi-times mr-2' : 'pi pi-bars mr-2'"
       ></i>
       Navigation bar
     </p-button>
+    <p-toggleswitch
+      [ngModel]="themeService.isDarkMode"
+      (ngModelChange)="themeService.setTheme($event)"
+      class="ml-4"
+    >
+      <ng-template #handle let-checked="checked">
+        <i [ngClass]="['text-xs', 'pi', checked ? 'pi-check' : 'pi-times']"></i>
+      </ng-template>
+    </p-toggleswitch>
   </div>
+
+  <p-button
+    (click)="logout()"
+    label="Exit"
+    icon="pi pi-sign-out"
+    severity="danger"
+    [text]="true"
+    [raised]="true"
+    class="ml-auto"
+  ></p-button>
 </p-card>

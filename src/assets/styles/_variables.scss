@@ -1,6 +1,27 @@
-$breakpoint-xs: 0;
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-xl: 1200px;
-$breakpoint-xxl: 1400px;
+// _variables.scss
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+);
+
+// Dark mode color palette (Material Design inspired)
+$dark-colors: (
+  surface-a: #1a1a1a,
+  surface-b: #252525,
+  surface-c: #2e2e2e,
+  surface-d: #383838,
+  surface-e: #424242,
+  surface-f: #4a4a4a,
+  text-primary: #ffffff,
+  text-secondary: #e0e0e0,
+  primary: #64b5f6,
+  primary-text: #121212,
+  error: #cf6679,
+  warning: #ffb74d,
+  success: #81c784,
+  info: #4fc3f7,
+);

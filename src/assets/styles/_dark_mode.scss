@@ -49,6 +49,16 @@
       color: #222 !important; // Ещё темнее для заголовков
       font-weight: 600;
     }
+
+    .p-card-body {
+      display: flex;
+      width: 100%;
+    }
+
+    .p-card-content {
+      display: flex;
+      width: 100%;
+    }
   }
 
   // Стили для переключателя меню

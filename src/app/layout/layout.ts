@@ -6,6 +6,8 @@ import { MessageService } from 'primeng/api';
 import { NavBarComponent } from '../../UI/nav-bar.component/nav-bar.component';
 import { DrawerModule } from 'primeng/drawer';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { DescriptionTemplate } from '../../UI/description-template/description-template';
+import { PageTemplate } from '../../UI/page-template/page-template';
 
 /**
  * Main application layout component with navigation drawer
@@ -14,12 +16,13 @@ import { PanelMenuModule } from 'primeng/panelmenu';
   selector: 'cv-layout',
   standalone: true,
   imports: [
-    RouterOutlet,
     ButtonModule,
     ToastModule,
     NavBarComponent,
     DrawerModule,
     PanelMenuModule,
+    DescriptionTemplate,
+    PageTemplate,
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',
@@ -62,7 +65,10 @@ export class Layout {
    * Handles drawer visibility changes
    * @param visible - New visibility state
    */
-  public onDrawerVisibleChange(visible: boolean): void {
-    this.isDrawerVisible.set(visible);
+  // In your NavBarComponent or LayoutComponent
+  onDrawerVisibleChange(event: Event | boolean) {
+    const isVisible =
+      typeof event === 'boolean' ? event : (event as CustomEvent).detail;
+    this.isDrawerVisible.set(isVisible);
   }
 }

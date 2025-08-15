@@ -1,3 +1,4 @@
+@use "variables" as *;
 // Убираем горизонтальный скролл для всех устройств
 @media (max-width: 9999px) {
   html,

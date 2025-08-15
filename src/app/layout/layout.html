@@ -1,5 +1,5 @@
-<div class="flex flex-col min-h-screen w-full p-10 box-border">
-  <div class="layout-container">
+<div class="flex flex-col min-h-screen w-full p-10 box-borders">
+  <div class="layout-container flex gap-y-10 flex-col h-screend">
     <p-toast position="top-right"></p-toast>
 
     <cv-nav-bar
@@ -8,7 +8,11 @@
       (toastEvent)="showToast($event)"
     ></cv-nav-bar>
 
-    <!-- PrimeNG Drawer Component with Menu Items -->
+    <div class="flex h-full gap-x-10">
+      <cv-description-template></cv-description-template>
+
+      <cv-page-template></cv-page-template>
+    </div>
     <p-drawer
       [visible]="isDrawerVisible()"
       (visibleChange)="onDrawerVisibleChange($event)"
@@ -22,28 +26,11 @@
         <h3>Navigation Menu</h3>
       </ng-template>
       <ng-template pTemplate="content">
-        <!-- Navigation menu items - now properly bound -->
         <p-panelMenu
           [model]="navBarComponent.items"
           [multiple]="false"
-          styleClass="w-full"
         ></p-panelMenu>
       </ng-template>
     </p-drawer>
-
-    <!-- Toggle Button -->
-    <button
-      pButton
-      (click)="toggleDrawer()"
-      icon="pi pi-bars"
-      class="p-button-rounded p-button-text"
-    ></button>
-
-    <!-- Main Content -->
-    <div class="h-full overflow-hidden">
-      <div class="content-wrapper h-full">
-        <router-outlet></router-outlet>
-      </div>
-    </div>
   </div>
 </div>

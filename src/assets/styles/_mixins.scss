@@ -1,0 +1,47 @@
+// _mixins.scss
+@use "variables" as *;
+
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint '#{$breakpoint}' not found in $breakpoints map";
+  }
+}
+
+@mixin dark-mode {
+  .dark-mode & {
+    @content;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &:not(.light-mode) {
+      @content;
+    }
+  }
+}
+
+@mixin card-styles {
+  background-color: white;
+  color: #333;
+  border-color: var(--surface-border);
+  padding: 20px;
+  border-radius: 20px;
+
+  * {
+    color: #333;
+  }
+
+  .p-card-title {
+    color: #222;
+    font-weight: 600;
+  }
+
+  .p-card-body,
+  .p-card-content {
+    display: flex;
+    width: 100%;
+  }
+}

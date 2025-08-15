@@ -11,10 +11,6 @@ export class ThemeService {
   initTheme() {
     const savedTheme = localStorage.getItem(this.THEME_KEY);
 
-    // Определение темы по порядку приоритета:
-    // 1. Сохраненная в localStorage
-    // 2. Системные настройки
-    // 3. Светлая тема по умолчанию
     const isDarkMode =
       savedTheme === this.DARK_THEME ||
       (!savedTheme &&
