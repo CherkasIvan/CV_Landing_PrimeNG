@@ -1,13 +1,12 @@
 import { Component, inject, signal, ViewChild } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { NavBarComponent } from '../../UI/nav-bar.component/nav-bar.component';
 import { DrawerModule } from 'primeng/drawer';
 import { PanelMenuModule } from 'primeng/panelmenu';
-import { DescriptionTemplate } from '../../UI/description-template/description-template';
-import { PageTemplate } from '../../UI/page-template/page-template';
+import { DescriptionTemplateComponent } from '../../UI/description-template/description-template.component';
+import { PageTemplateComponent } from '../../UI/page-template/page-template.component';
 
 /**
  * Main application layout component with navigation drawer
@@ -21,8 +20,8 @@ import { PageTemplate } from '../../UI/page-template/page-template';
     NavBarComponent,
     DrawerModule,
     PanelMenuModule,
-    DescriptionTemplate,
-    PageTemplate,
+    DescriptionTemplateComponent,
+    PageTemplateComponent,
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',

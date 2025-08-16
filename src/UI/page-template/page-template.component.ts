@@ -16,10 +16,10 @@ import { CommonModule } from '@angular/common';
   selector: 'cv-page-template',
   standalone: true,
   imports: [RouterOutlet, CardModule, ProgressSpinnerModule, CommonModule],
-  templateUrl: './page-template.html',
-  styleUrl: './page-template.scss',
+  templateUrl: './page-template.component.html',
+  styleUrl: './page-template.component.scss',
 })
-export class PageTemplate {
+export class PageTemplateComponent {
   isLoading = false;
 
   constructor(private router: Router) {
