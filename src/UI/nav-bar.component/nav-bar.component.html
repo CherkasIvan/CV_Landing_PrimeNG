@@ -1,4 +1,5 @@
 <p-card class="card flex justify-between items-center p-4">
+  <!-- Левый блок -->
   <div class="flex gap-x-10 items-center">
     <p-button
       (click)="isNavBarVisible.set(!isNavBarVisible())"
@@ -24,13 +25,29 @@
     </p-toggleswitch>
   </div>
 
-  <p-button
-    (click)="logout()"
-    label="Exit"
-    icon="pi pi-sign-out"
-    severity="danger"
-    [text]="true"
-    [raised]="true"
-    class="ml-auto"
-  ></p-button>
+  <!-- Правый блок -->
+  <div class="flex gap-x-4 items-center">
+    <p-button
+      (click)="logout()"
+      label="Exit"
+      icon="pi pi-sign-out"
+      severity="danger"
+      [text]="true"
+      [raised]="true"
+    ></p-button>
+
+    @if (isAuthenticated()) {
+    <p-avatar
+      [image]="
+        themeService.isDarkMode
+          ? 'assets/imgs/profile-i.cherkas-dm.jpg'
+          : 'assets/imgs/profile-i.cherkas-wm.jpg'
+      "
+      size="xlarge"
+      shape="circle"
+    />
+    } @else {
+    <p-avatar label="G" size="xlarge" shape="circle" />
+    }
+  </div>
 </p-card>

@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../core/services/theme.service/theme.service';
 import { createMenuItems } from '../../utils/constants/menu-items.const';
 import { FirebaseService } from '../../core/services/firebase.service/firebase.service';
+import { AvatarModule } from 'primeng/avatar';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 /**
  * Navigation bar component with theme toggle and drawer functionality
@@ -31,6 +33,8 @@ import { FirebaseService } from '../../core/services/firebase.service/firebase.s
     ToggleSwitchModule,
     NgClass,
     CardModule,
+    AvatarGroupModule,
+    AvatarModule,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
@@ -49,6 +53,8 @@ export class NavBarComponent implements OnInit {
 
   /** Controls visibility of the navigation bar */
   public isNavBarVisible = model.required<boolean>();
+
+  public isAuthenticated = signal(false);
 
   /** Event emitter for toast notifications */
   public toastEvent = output<{
@@ -121,11 +127,52 @@ export class NavBarComponent implements OnInit {
       });
   }
 
+  public handleLogout(): void {
+    this.firebaseService.signOut().subscribe({
+      next: () => {
+        localStorage.removeItem('user');
+        this.router.navigate(['/auth']);
+        this.toastEvent.emit({
+          severity: 'success',
+          summary: 'Signed out',
+          detail: 'User logged out successfully',
+        });
+        this.isNavBarVisible.set(false);
+      },
+      error: (err) => {
+        console.error('Logout failed:', err);
+        this.toastEvent.emit({
+          severity: 'error',
+          summary: 'Logout failed',
+          detail: 'Error during logout',
+        });
+      },
+    });
+  }
+
+  private checkAuthStatus(): void {
+    const userJson = localStorage.getItem('user');
+    if (userJson) {
+      try {
+        const user = JSON.parse(userJson);
+        this.isAuthenticated.set(!!user.email);
+      } catch {
+        this.isAuthenticated.set(false);
+      }
+    } else {
+      this.isAuthenticated.set(false);
+    }
+  }
+
   public ngOnInit() {
+    this.checkAuthStatus();
+
     this.items = createMenuItems({
       navigateWithToast: this.navigateWithToast.bind(this),
       toastEvent: this.toastEvent,
       isNavBarVisible: this.isNavBarVisible,
+      firebaseService: this.firebaseService, // Pass the service
+      router: this.router, // Pass the router
     });
   }
 }

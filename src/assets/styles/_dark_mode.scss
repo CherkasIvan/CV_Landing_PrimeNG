@@ -1,21 +1,22 @@
+@use "sass:map";
+@use "variables" as colors;
+
 .dark-mode {
-  // Осветлённая цветовая палитра
-  --surface-a: #1a1a1a; // Более светлый основной фон
-  --surface-b: #252525; // Более светлый тёмный фон
-  --surface-c: #2e2e2e; // Осветлённые поверхности элементов
-  --surface-d: #383838; // Бордеры/разделители
-  --surface-e: #424242; // Более светлые карточки
-  --surface-f: #4a4a4a; // Ховер-состояния
+  --surface-a: #{map.get(colors.$dark-colors, surface-a)};
+  --surface-b: #{map.get(colors.$dark-colors, surface-b)};
+  --surface-c: #{map.get(colors.$dark-colors, surface-c)};
+  --surface-d: #{map.get(colors.$dark-colors, surface-d)};
+  --surface-e: #{map.get(colors.$dark-colors, surface-e)};
+  --surface-f: #{map.get(colors.$dark-colors, surface-f)};
+  --text-color: #{map.get(colors.$dark-colors, text-primary)};
+  --text-color-secondary: #{map.get(colors.$dark-colors, text-secondary)};
+  --primary-color: #{map.get(colors.$dark-colors, primary)};
+  --primary-color-text: #{map.get(colors.$dark-colors, primary-text)};
+  --error-color: #{map.get(colors.$dark-colors, error)};
+  --warning-color: #{map.get(colors.$dark-colors, warning)};
+  --success-color: #{map.get(colors.$dark-colors, success)};
+  --info-color: #{map.get(colors.$dark-colors, info)};
 
-  // Цвета текста остаются контрастными
-  --text-color: #ffffff; // Основной текст (белый)
-  --text-color-secondary: #e0e0e0; // Вторичный текст
-
-  // Акцентные цвета
-  --primary-color: #64b5f6; // Яркий акцент для лучшей видимости
-  --primary-color-text: #121212; // Текст на акцентном фоне
-
-  // Дополнительные поверхности
   --surface-ground: var(--surface-a);
   --surface-card: #ffffff;
   --surface-border: var(--surface-d);
@@ -23,59 +24,51 @@
   background-color: var(--surface-a);
   color: var(--text-color);
 
-  // Глобальные стили
   .p-panel {
     background-color: var(--surface-a);
 
-    .p-panel-content {
+    &-content {
       background-color: var(--surface-a);
     }
   }
 
-  // СТИЛИ ДЛЯ КАРТОЧЕК - БЕЛЫЙ ФОН И ОТСТУПЫ 20px
   .p-card {
     background-color: var(--surface-card) !important;
-    color: #333 !important; // Тёмный текст для контраста с белым фоном
+    color: #333 !important;
     border-color: var(--surface-border);
-    padding: 20px !important; // Отступы 20px со всех сторон
+    padding: 20px !important;
     border-radius: 20px;
-    // Для всех текстовых элементов внутри карточки
+
     * {
-      color: #333 !important; // Тёмный текст
+      color: #333 !important;
     }
 
-    // Для заголовков
-    .p-card-title {
-      color: #222 !important; // Ещё темнее для заголовков
+    &-title {
+      color: #222 !important;
       font-weight: 600;
     }
 
-    .p-card-body {
+    &-body,
+    &-content {
       display: flex;
       width: 100%;
-    }
-
-    .p-card-content {
-      display: flex;
-      width: 100%;
+      justify-content: space-between;
     }
   }
 
-  // Стили для переключателя меню
   .menu-toggle {
     background-color: var(--primary-color) !important;
     color: var(--primary-color-text) !important;
   }
 
-  // Дополнительные компоненты
   .p-panelmenu {
-    .p-panelmenu-header-link {
+    &-header-link {
       background: var(--surface-c);
       color: var(--text-color);
       border-color: var(--surface-border);
     }
 
-    .p-panelmenu-content {
+    &-content {
       background: var(--surface-b);
       border-color: var(--surface-border);
 
@@ -89,12 +82,18 @@
     }
   }
 
-  .p-drawer-header {
-    background: #2e2e2e;
-    color: #e0e0e0;
-  }
+  .p-drawer {
+    &-header {
+      background: #{map.get(colors.$dark-colors, surface-c)};
+      color: #{map.get(colors.$dark-colors, text-secondary)};
+    }
 
-  .p-drawer-content {
-    background: #2e2e2e;
+    &-content {
+      background: #{map.get(colors.$dark-colors, surface-c)};
+
+      a {
+        color: #{map.get(colors.$dark-colors, text-secondary)};
+      }
+    }
   }
 }

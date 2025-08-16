@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CardModule } from 'primeng/card';
+import { socialLinks } from '../../utils/constants/social-links.const';
 
 @Component({
   selector: 'cv-description-template',
@@ -8,4 +9,6 @@ import { CardModule } from 'primeng/card';
   templateUrl: './description-template.html',
   styleUrl: './description-template.scss',
 })
-export class DescriptionTemplate {}
+export class DescriptionTemplate {
+  public links = socialLinks;
+}

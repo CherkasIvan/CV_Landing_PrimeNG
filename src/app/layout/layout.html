@@ -1,5 +1,5 @@
-<div class="flex flex-col min-h-screen w-full p-10 box-borders">
-  <div class="layout-container flex gap-y-10 flex-col h-screend">
+<div class="flex flex-col min-h-screen w-full p-10 box-borders h-screen">
+  <div class="layout-container flex gap-y-10 flex-col h-full">
     <p-toast position="top-right"></p-toast>
 
     <cv-nav-bar
@@ -11,7 +11,7 @@
     <div class="flex h-full gap-x-10">
       <cv-description-template></cv-description-template>
 
-      <cv-page-template></cv-page-template>
+      <cv-page-template class="w-full"></cv-page-template>
     </div>
     <p-drawer
       [visible]="isDrawerVisible()"

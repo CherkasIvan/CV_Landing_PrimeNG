@@ -8,20 +8,34 @@ $breakpoints: (
   xxl: 1400px,
 );
 
-// Dark mode color palette (Material Design inspired)
+// Complete dark mode color palette
 $dark-colors: (
+  // Surfaces
   surface-a: #1a1a1a,
   surface-b: #252525,
   surface-c: #2e2e2e,
   surface-d: #383838,
   surface-e: #424242,
   surface-f: #4a4a4a,
+
+  // Text colors
   text-primary: #ffffff,
   text-secondary: #e0e0e0,
+
+  // Primary colors
   primary: #64b5f6,
   primary-text: #121212,
+
+  // State colors
   error: #cf6679,
   warning: #ffb74d,
   success: #81c784,
   info: #4fc3f7,
+
+  // Component-specific colors
+  drawer-header: #2e2e2e,
+  drawer-text: #e0e0e0,
+  card-bg: #ffffff,
+  card-text: #333,
+  card-title: #222
 );

@@ -1,46 +1,24 @@
-@use "variables" as *;
-@use "mixins" as *;
+@use "variables" as size;
+@use "mixins" as mixin;
 
 body {
-  @include respond-to(xs) {
+  @include mixin.respond-to(xs) {
     font-size: 14px;
   }
 
-  @include respond-to(sm) {
+  @include mixin.respond-to(sm) {
     font-size: 15px;
   }
 
-  @include respond-to(md) {
+  @include mixin.respond-to(md) {
     font-size: 16px;
   }
 
-  @include respond-to(lg) {
+  @include mixin.respond-to(lg) {
     font-size: 17px;
   }
 
-  @include respond-to(xl) {
-    font-size: 18px;
-  }
-}
-
-body {
-  @include respond-to(xs) {
-    font-size: 14px;
-  }
-
-  @include respond-to(sm) {
-    font-size: 15px;
-  }
-
-  @include respond-to(md) {
-    font-size: 16px;
-  }
-
-  @include respond-to(lg) {
-    font-size: 17px;
-  }
-
-  @include respond-to(xl) {
+  @include mixin.respond-to(xl) {
     font-size: 18px;
   }
 }

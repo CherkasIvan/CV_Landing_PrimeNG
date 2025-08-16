@@ -1,9 +1,10 @@
 // _mixins.scss
-@use "variables" as *;
+@use "sass:map";
+@use "variables" as color; // Note: Using namespace instead of *
 
 @mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
+  @if map.has-key(color.$breakpoints, $breakpoint) {
+    @media (min-width: map.get(color.$breakpoints, $breakpoint)) {
       @content;
     }
   } @else {
@@ -32,16 +33,5 @@
 
   * {
     color: #333;
-  }
-
-  .p-card-title {
-    color: #222;
-    font-weight: 600;
-  }
-
-  .p-card-body,
-  .p-card-content {
-    display: flex;
-    width: 100%;
   }
 }

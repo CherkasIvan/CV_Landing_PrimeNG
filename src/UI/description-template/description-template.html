@@ -1,3 +1,22 @@
-<p-card class="h-full overflow-hidden">
-  <p>description-template works!</p>
+<p-card class="h-full overflow-hidden flex flex-column">
+  <div class="social-container">
+    <ul class="social-list">
+      @for (social of links; track social.id) {
+      <li class="social-item">
+        <a
+          [href]="social.url"
+          [target]="social.isExternal ? '_blank' : '_self'"
+          class="social-link"
+          [title]="social.name"
+        >
+          <img
+            [src]="'assets/icons/' + social.icon + '.svg'"
+            [alt]="social.name"
+            class="social-icon"
+          />
+        </a>
+      </li>
+      }
+    </ul>
+  </div>
 </p-card>

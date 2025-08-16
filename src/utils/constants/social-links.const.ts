@@ -1,0 +1,65 @@
+export const socialLinks = [
+  {
+    id: 1,
+    name: 'VK',
+    icon: 'vk',
+    url: 'https://vk.com/cherkasss',
+    isExternal: true,
+  },
+  {
+    id: 2,
+    name: 'Facebook',
+    icon: 'facebook',
+    url: 'https://www.facebook.com/ivan.cherkas',
+    isExternal: true,
+  },
+  {
+    id: 3,
+    name: 'GitHub',
+    icon: 'github',
+    url: 'https://github.com/CherkasIvan',
+    isExternal: true,
+  },
+  {
+    id: 4,
+    name: 'Telegram',
+    icon: 'telegram',
+    url: 'https://t.me/IvanCherkas', // Убрано @ перед именем
+    isExternal: true,
+  },
+  {
+    id: 5,
+    name: 'Email',
+    icon: 'mail',
+    url: 'mailto:cherkas.ivan13@gmail.com',
+    isExternal: false,
+  },
+  {
+    id: 6,
+    name: 'Phone',
+    icon: 'phone',
+    url: 'tel:+375291657653',
+    isExternal: false,
+  },
+  {
+    id: 7,
+    name: 'Skype',
+    icon: 'skype',
+    url: 'skype:live:.cid.270d4d79826c9a4d?chat',
+    isExternal: false,
+  },
+  {
+    id: 8,
+    name: 'linkedin',
+    icon: 'linkedin',
+    url: 'https://www.linkedin.com/in/ivan-cherkas-723b411a2/',
+    isExternal: true,
+  },
+  {
+    id: 9,
+    name: 'instagram',
+    icon: 'instagram',
+    url: 'https://www.instagram.com/johnny_void_13/',
+    isExternal: true,
+  },
+];
