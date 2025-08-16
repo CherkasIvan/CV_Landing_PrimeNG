@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'cv-products',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './products.page.html',
   styleUrl: './products.page.scss',
 })

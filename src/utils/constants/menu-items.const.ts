@@ -86,7 +86,7 @@ export const createMenuItems = (context: MenuContext): MenuItem[] => [
         icon: 'pi pi-book',
         command: () =>
           context.navigateWithToast(
-            [ERoute.LAYOUT, ERoute.EDUCATION],
+            [ERoute.LAYOUT, ERoute.EXPERIENCE_EDUCATION, ERoute.EDUCATION],
             'Обучение'
           ),
       },
@@ -95,7 +95,7 @@ export const createMenuItems = (context: MenuContext): MenuItem[] => [
         icon: 'pi pi-building',
         command: () =>
           context.navigateWithToast(
-            [ERoute.LAYOUT, ERoute.WORK],
+            [ERoute.LAYOUT, ERoute.EXPERIENCE_EDUCATION, ERoute.WORK],
             'Места работы'
           ),
       },

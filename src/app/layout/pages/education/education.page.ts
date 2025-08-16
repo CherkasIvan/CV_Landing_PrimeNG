@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'cv-education',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './education.page.html',
   styleUrl: './education.page.scss',
 })

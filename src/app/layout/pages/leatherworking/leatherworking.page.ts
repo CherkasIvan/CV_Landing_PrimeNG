@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'cv-leatherworking',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './leatherworking.page.html',
   styleUrl: './leatherworking.page.scss',
 })

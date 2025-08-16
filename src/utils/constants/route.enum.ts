@@ -9,6 +9,7 @@ export const enum ERoute {
   TECHNOLOGIES = 'technologies',
 
   // Опыт работы и обучение
+  EXPERIENCE_EDUCATION = 'experience_education',
   EXPERIENCE = 'experience',
   EDUCATION = 'education',
   WORK = 'work',
@@ -19,6 +20,7 @@ export const enum ERoute {
   OTHER_HANDMADE = 'other-handmade',
 
   // Подразделы технологий
+  HARD = 'hard',
   FRONTEND = 'frontend',
   BACKEND = 'backend',
   SOFT = 'soft',

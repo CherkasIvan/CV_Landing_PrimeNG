@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'cv-frontend',
-  imports: [],
+  imports: [RouterOutlet],
   templateUrl: './frontend.page.html',
   styleUrl: './frontend.page.scss',
 })
